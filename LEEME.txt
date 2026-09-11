@@ -1,10 +1,18 @@
-KILLARY PERFUMES & MÁS - V9
+KILLARY PERFUMES & MÁS - V10
 
-NUEVO:
-- Se incorporó el segundo código QR de Yape.
-- QR 1: 935 752 403 — Emmanuel Adolfo Valcarcel Bornas.
-- QR 2: 952 682 896 — Selene Sipion Rengifo.
-- Ambos QR aparecen juntos en la sección de pagos.
-- El carrito y pedidos por WhatsApp se mantienen.
+MEJORAS:
+- Marca KILLARY consolidada.
+- Diseño responsive para celular.
+- Menú móvil desplegable.
+- Mejor presentación del proceso de compra.
+- Se mantienen carrito, buscador, categorías y ofertas.
+- Se mantienen los dos QR de Yape.
+- Se mantienen los dos números de WhatsApp.
+- Panel de administración demo.
 
-Para actualizar GitHub Pages, sube/reemplaza index.html, estilos.css, script.js y la carpeta imagenes/.
+PUBLICACIÓN:
+Subir/reemplazar index.html, estilos.css y script.js en GitHub.
+Mantener la carpeta imagenes/ con ambos QR.
+
+IMPORTANTE:
+El panel de administración de esta versión está pensado como demo local/estática. Para administrar productos de forma segura desde cualquier dispositivo se requiere autenticación y una base de datos en un backend.

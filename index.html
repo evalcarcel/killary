@@ -1,10 +1,10 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KILLARY | Perfumes & Más</title><link rel="stylesheet" href="estilos.css"></head><body>
-<header><div class="logo">KILLARY <small>PERFUMES & MÁS</small></div><nav><a href="#inicio">Inicio</a><a href="#productos">Productos</a><a href="#ofertas">Ofertas</a><a href="#admin" onclick="abrirLogin()">Administrar</a><button onclick="verCarrito()">🛒 Carrito <b id="contador">0</b></button></nav></header>
+<header><button class="menu-toggle" onclick="toggleMenu()" aria-label="Abrir menú">☰</button><div class="logo">KILLARY <small>PERFUMES & MÁS</small></div><nav id="mainNav"><a href="#inicio">Inicio</a><a href="#productos">Productos</a><a href="#ofertas">Ofertas</a><a href="#admin" onclick="abrirLogin()">Administrar</a><button onclick="verCarrito()">🛒 Carrito <b id="contador">0</b></button></nav></header>
 <section id="inicio" class="hero"><div><p>✨ BELLEZA · PERFUMES · CUIDADO PERSONAL</p><h1>Tu esencia,<br><strong>tu estilo.</strong></h1><span>Encuentra tu fragancia favorita.</span><br><a class="btn" href="#productos">Comprar ahora</a></div></section>
 <section class="categorias"><h2>Categorías</h2><div class="cats"><a href="#productos">🌸 Perfumes</a><a href="#productos">💄 Belleza</a><a href="#productos">🧴 Cuidado personal</a><a href="#ofertas">🎁 Promociones</a></div></section>
 <section id="productos"><h2>Productos destacados</h2><div class="tools"><input id="buscar" oninput="filtrar()" placeholder="🔎 Buscar producto..."><select id="categoria" onchange="filtrar()"><option value="">Todas las categorías</option><option>Perfumes</option><option>Belleza</option><option>Cuidado personal</option></select></div><div id="lista" class="grid"></div></section>
 <section id="ofertas" class="oferta"><span>OFERTA ESPECIAL</span><h2>Combos para regalar</h2><p>Consulta nuestras promociones.</p></section>
-<section class="pago"><h2>💳 Formas de pago</h2>
+<div class="venta-banner"><strong>🛍️ Compra fácil en KILLARY</strong><span>Elige tus productos, revisa el carrito y envía tu pedido por WhatsApp.</span></div><section class="pago"><h2>💳 Formas de pago</h2>
 <p>Realiza tu pago por Yape y envíanos tu comprobante por WhatsApp.</p>
 <div class="yapes">
 <div>📱 <b>Yape</b><br>935 752 403</div>

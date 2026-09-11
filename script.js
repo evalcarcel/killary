@@ -54,3 +54,13 @@ function loginAdmin(){
  else alert("Usuario o contraseña incorrectos.");
 }
 function cerrarAdmin(){document.getElementById("admin").style.display="none";document.getElementById("adminUser").value="";document.getElementById("adminPass").value="";}
+
+function toggleMenu(){
+ const nav=document.getElementById("mainNav");
+ if(nav) nav.classList.toggle("open");
+}
+document.addEventListener("click",function(e){
+ const nav=document.getElementById("mainNav");
+ const btn=document.querySelector(".menu-toggle");
+ if(nav && nav.classList.contains("open") && !nav.contains(e.target) && e.target!==btn) nav.classList.remove("open");
+});
