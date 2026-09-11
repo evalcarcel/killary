@@ -1,18 +1,28 @@
-KILLARY PERFUMES & MÁS - V10
+KILLARY PERFUMES & MAS - V12
 
-MEJORAS:
-- Marca KILLARY consolidada.
-- Diseño responsive para celular.
-- Menú móvil desplegable.
-- Mejor presentación del proceso de compra.
-- Se mantienen carrito, buscador, categorías y ofertas.
-- Se mantienen los dos QR de Yape.
-- Se mantienen los dos números de WhatsApp.
-- Panel de administración demo.
+Esta versión conecta la tienda con Supabase.
 
-PUBLICACIÓN:
-Subir/reemplazar index.html, estilos.css y script.js en GitHub.
-Mantener la carpeta imagenes/ con ambos QR.
+INCLUYE:
+- Autenticación real con Supabase Auth.
+- Acceso al panel únicamente para usuarios cuyo perfil tenga rol "admin".
+- Productos almacenados en la tabla public.productos.
+- Agregar, editar y eliminar productos desde el panel.
+- Catálogo público sincronizado con la base de datos.
+- Carrito, Yape, QR y WhatsApp conservados.
+- RLS utilizado para proteger la tabla de productos.
+
+SUPABASE CONFIGURADO:
+- Proyecto: killary
+- Región: South America (São Paulo)
+- Tabla: productos
+- Tabla: perfiles
+- Función: public.is_admin()
 
 IMPORTANTE:
-El panel de administración de esta versión está pensado como demo local/estática. Para administrar productos de forma segura desde cualquier dispositivo se requiere autenticación y una base de datos en un backend.
+La Publishable Key puede estar en el frontend. NUNCA colocar una Secret key o service_role key en este sitio.
+
+Para entrar al panel, usa el correo y contraseña del usuario creado en Supabase Authentication > Users.
+Ese usuario debe tener una fila en public.perfiles con id igual al UID de Auth y rol = admin.
+
+GitHub Pages:
+Sube el contenido de este ZIP al repositorio evalcarcel/killary y espera el despliegue de GitHub Pages.
