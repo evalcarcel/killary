@@ -1,0 +1,18 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Yabal Perfumes & Más</title><link rel="stylesheet" href="estilos.css"></head><body>
+<header><div class="logo">Yabal <small>PERFUMES & MÁS</small></div><nav><a href="#inicio">Inicio</a><a href="#productos">Productos</a><a href="#ofertas">Ofertas</a><a href="#admin" onclick="abrirLogin()">Administrar</a><button onclick="verCarrito()">🛒 Carrito <b id="contador">0</b></button></nav></header>
+<section id="inicio" class="hero"><div><p>✨ BELLEZA · PERFUMES · CUIDADO PERSONAL</p><h1>Tu esencia,<br><strong>tu estilo.</strong></h1><span>Encuentra tu fragancia favorita.</span><br><a class="btn" href="#productos">Comprar ahora</a></div></section>
+<section class="categorias"><h2>Categorías</h2><div class="cats"><a href="#productos">🌸 Perfumes</a><a href="#productos">💄 Belleza</a><a href="#productos">🧴 Cuidado personal</a><a href="#ofertas">🎁 Promociones</a></div></section>
+<section id="productos"><h2>Productos destacados</h2><div class="tools"><input id="buscar" oninput="filtrar()" placeholder="🔎 Buscar producto..."><select id="categoria" onchange="filtrar()"><option value="">Todas las categorías</option><option>Perfumes</option><option>Belleza</option><option>Cuidado personal</option></select></div><div id="lista" class="grid"></div></section>
+<section id="ofertas" class="oferta"><span>OFERTA ESPECIAL</span><h2>Combos para regalar</h2><p>Consulta nuestras promociones.</p></section>
+<section class="pago"><h2>Formas de pago</h2><p>Yape</p><div class="yapes"><div>📱 <b>Yape 1</b><br>935 752 403</div><div>📱 <b>Yape 2</b><br>952 682 896</div></div><p class="nota">Después podemos agregar los códigos QR de ambos números.</p></section>
+<section id="login" class="admin login-box" style="display:none"><div class="login-card"><button class="x" onclick="cerrarLogin()">×</button><h2>🔐 Administrador</h2><p>Ingresa tus datos para administrar la tienda.</p><input id="adminUser" placeholder="Usuario"><input id="adminPass" type="password" placeholder="Contraseña"><button onclick="loginAdmin()">Ingresar</button><small>Demo local: usuario <b>admin</b> · contraseña <b>yabal2026</b></small></div></section>
+<section id="admin" class="admin" style="display:none"><div class="admin-head"><h2>⚙️ Panel de administración</h2><button onclick="cerrarAdmin()">Cerrar sesión</button></div>
+<p class="sub">Agrega, edita o elimina productos desde tu navegador. Los cambios quedan guardados en este equipo.</p>
+<div class="admin-form">
+<input id="nuevoNombre" placeholder="Nombre del producto"><input id="nuevoPrecio" type="number" step="0.01" placeholder="Precio S/">
+<select id="nuevoCategoria"><option>Perfumes</option><option>Belleza</option><option>Cuidado personal</option></select>
+<input id="nuevoImagen" placeholder="URL de imagen"><input id="nuevoDescripcion" placeholder="Descripción">
+<button onclick="guardarProducto()">➕ Agregar producto</button>
+</div><div id="adminLista"></div></section>
+<div id="modal" class="modal"><div class="caja"><button class="x" onclick="cerrar()">×</button><h2>🛒 Tu carrito</h2><div id="carrito"></div><h3>Total: S/ <span id="total">0.00</span></h3><label>Nombre<br><input id="nombre" placeholder="Tu nombre"></label><label>Dirección / referencia<br><input id="direccion" placeholder="Lugar de entrega"></label><button class="wa" onclick="whatsapp()">💬 Enviar pedido por WhatsApp</button></div></div>
+<footer><h3>Yabal Perfumes & Más</h3><p>© 2026 · Perfumes · Belleza · Cuidado personal</p></footer><script src="script.js"></script></body></html>
