@@ -1,13 +1,10 @@
-V6 Yabal Perfumes & Más
+KILLARY PERFUMES & MÁS - V9
+
 NUEVO:
-- Acceso de administrador con usuario y contraseña.
-- Panel para agregar, editar y eliminar productos.
-- Catálogo, buscador, categorías y carrito.
-- Yape: 935 752 403 y 952 682 896.
-- WhatsApp de pedidos: 935 752 403.
+- Se incorporó el segundo código QR de Yape.
+- QR 1: 935 752 403 — Emmanuel Adolfo Valcarcel Bornas.
+- QR 2: 952 682 896 — Selene Sipion Rengifo.
+- Ambos QR aparecen juntos en la sección de pagos.
+- El carrito y pedidos por WhatsApp se mantienen.
 
-ACCESO DEMO LOCAL:
-Usuario: admin
-Contraseña: yabal2026
-
-IMPORTANTE: esta contraseña es solo para la versión local/demo. Antes de publicar la tienda, debemos cambiarla por autenticación real en un servidor/base de datos. No conviene usar esta contraseña en una tienda pública.
+Para actualizar GitHub Pages, sube/reemplaza index.html, estilos.css, script.js y la carpeta imagenes/.

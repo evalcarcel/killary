@@ -35,7 +35,17 @@ function editar(i,cambio){
 function eliminar(i){
   carrito.splice(i,1); contador.textContent=carrito.length; render();
 }
-function whatsapp(){if(!carrito.length)return alert("Agrega un producto.");let t=carrito.reduce((s,p)=>s+p[2],0).toFixed(2),d=carrito.map(p=>"- "+p[0]+" S/ "+p[2].toFixed(2)).join("%0A"),n=document.getElementById("nombre").value||"Cliente",a=document.getElementById("direccion").value||"Por confirmar";window.open("https://wa.me/51935752403?text=Hola,%20soy%20"+encodeURIComponent(n)+"%20y%20quiero%20hacer%20este%20pedido:%0A"+d+"%0ATotal:%20S/"+t+"%0ADirección:%20"+encodeURIComponent(a)," _blank")}
+function whatsapp(){
+ if(!carrito.length)return alert("Agrega un producto.");
+ let t=carrito.reduce((s,p)=>s+p[2],0).toFixed(2);
+ let d=carrito.map(p=>"- "+p[0]+" S/ "+p[2].toFixed(2)).join("%0A");
+ let n=document.getElementById("nombre").value||"Cliente";
+ let a=document.getElementById("direccion").value||"Por confirmar";
+ let e=document.getElementById("entrega").value;
+ let destino=document.getElementById("destino").value;
+ let msg="Hola, soy "+n+" y quiero hacer este pedido:%0A"+d+"%0ATotal: S/"+t+"%0AEntrega: "+encodeURIComponent(e)+"%0ADirección: "+encodeURIComponent(a);
+ window.open("https://wa.me/"+destino+"?text="+msg,"_blank");
+}
 function abrirLogin(){document.getElementById("login").style.display="flex";document.getElementById("admin").style.display="none"}
 function cerrarLogin(){document.getElementById("login").style.display="none"}
 function loginAdmin(){
