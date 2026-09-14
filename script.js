@@ -290,6 +290,22 @@ async function comprobarSesion() {
   }
 }
 
+
+
+function prepararWhatsAppAtencion() {
+  if (document.getElementById('waAtencion')) return;
+
+  const btn = document.createElement('a');
+  btn.id = 'waAtencion';
+  btn.className = 'wa-atencion';
+  btn.href = 'https://wa.me/519356752403?text=' + encodeURIComponent('Hola KILLARY 👋, tengo una consulta sobre sus productos.');
+  btn.target = '_blank';
+  btn.rel = 'noopener noreferrer';
+  btn.setAttribute('aria-label', 'Conversar con KILLARY por WhatsApp');
+  btn.innerHTML = '<span class="wa-atencion-icon">💬</span><span class="wa-atencion-text"><b>¿Tienes dudas?</b><small>Escríbenos por WhatsApp</small></span>';
+  document.body.appendChild(btn);
+}
+
 function toggleMenu() {
   const nav = $('mainNav');
   const btn = document.querySelector('.menu-toggle');
@@ -334,3 +350,4 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 prepararMarca();
 cargarProductos();
 comprobarSesion();
+prepararWhatsAppAtencion();
