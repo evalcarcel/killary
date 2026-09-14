@@ -119,7 +119,8 @@ function whatsapp() {
   const direccion = $('direccion').value || 'Por confirmar';
   const entrega = $('entrega').value;
   const destino = $('destino').value;
-  const msg = `Hola, soy ${nombre} y quiero hacer este pedido:\n${detalle}\nTotal: S/${total}\nEntrega: ${entrega}\nDirección: ${direccion}`;
+  const destinoNombre = $('destino').selectedOptions[0]?.textContent || destino;
+  const msg = `🛍️ PEDIDO KILLARY\n\nHola, soy ${nombre} y quiero hacer este pedido:\n${detalle}\n\n💰 TOTAL: S/ ${total}\n🚚 Entrega: ${entrega}\n📍 Dirección / referencia: ${direccion}\n💳 Yape seleccionado: ${destinoNombre}\n\nEnviaré el comprobante de pago por este WhatsApp.`;
   window.open(`https://wa.me/${destino}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
