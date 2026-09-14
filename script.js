@@ -292,13 +292,39 @@ async function comprobarSesion() {
 
 function toggleMenu() {
   const nav = $('mainNav');
-  if (nav) nav.classList.toggle('open');
+  const btn = document.querySelector('.menu-toggle');
+  if (!nav) return;
+  const abierto = nav.classList.toggle('open');
+  if (btn) {
+    btn.setAttribute('aria-expanded', String(abierto));
+    btn.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+  }
+}
+
+function cerrarMenuMovil() {
+  const nav = $('mainNav');
+  const btn = document.querySelector('.menu-toggle');
+  if (!nav) return;
+  nav.classList.remove('open');
+  if (btn) {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Abrir menú');
+  }
 }
 
 document.addEventListener('click', e => {
   const nav = $('mainNav');
   const btn = document.querySelector('.menu-toggle');
-  if (nav && nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) nav.classList.remove('open');
+  if (!nav) return;
+  if (nav.contains(e.target)) {
+    if (e.target.closest('a,button') && !e.target.closest('.menu-toggle')) cerrarMenuMovil();
+    return;
+  }
+  if (nav.classList.contains('open') && e.target !== btn && !btn?.contains(e.target)) cerrarMenuMovil();
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 760) cerrarMenuMovil();
 });
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
