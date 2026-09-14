@@ -253,3 +253,64 @@ footer{border-top:1px solid rgba(255,255,255,.08)}
   .add{min-height:48px}
   .oferta,.pago{margin-left:8px;margin-right:8px}
 }
+
+/* KILLARY V18 — experiencia comercial */
+section#productos{max-width:1280px;margin:0 auto;padding-top:72px;padding-bottom:72px}
+#productos h2{margin-bottom:30px}
+.tools{max-width:940px;margin-bottom:34px;position:relative}
+.tools input,.tools select{height:48px;border:1px solid #e5d8d2;box-shadow:0 5px 16px rgba(45,30,30,.05);transition:.2s}
+.tools input:focus,.tools select:focus{outline:none;border-color:#b58a55;box-shadow:0 0 0 3px rgba(181,138,85,.12)}
+.grid{align-items:stretch}
+.card{position:relative;border:1px solid rgba(90,60,50,.07);box-shadow:0 9px 28px rgba(45,30,30,.08);transition:transform .22s ease,box-shadow .22s ease}
+.card:hover{transform:translateY(-7px);box-shadow:var(--k-shadow-hover)}
+.card img{height:270px;display:block;transition:transform .35s ease}
+.card:hover img{transform:scale(1.035)}
+.card .body{padding:18px 18px 20px;display:flex;flex-direction:column;min-height:205px}
+.card h3{font-size:18px;line-height:1.25;color:var(--k-ink)}
+.desc{line-height:1.45;min-height:40px}
+.price{display:flex;align-items:baseline;gap:8px;margin:14px 0 16px;font-size:15px}
+.price del{font-size:14px;color:#8b7d78}
+.price strong{font-size:25px;color:var(--k-ink);letter-spacing:-.4px}
+.add{margin-top:auto;padding:13px 16px;border-radius:10px;background:var(--k-ink);box-shadow:0 7px 16px rgba(36,29,31,.14);cursor:pointer;transition:.2s}
+.add:hover{background:#3a3033;transform:translateY(-2px);box-shadow:0 10px 20px rgba(36,29,31,.18)}
+
+/* Destacar visualmente los productos en oferta */
+.oferta{position:relative;overflow:hidden;background:linear-gradient(135deg,#f0dfd7 0%,#fbf6f3 60%,#efe0d8 100%);border:1px solid #ead8d0}
+.oferta>span{display:inline-block;background:var(--k-ink);color:#fff;padding:7px 13px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:1.5px;box-shadow:0 6px 15px rgba(36,29,31,.14)}
+.oferta h2{margin-top:14px;margin-bottom:8px}
+.oferta>p{color:#66595a}
+.ofertas-grid{max-width:1100px;margin:28px auto 0}
+.oferta-card{border-color:#e5cec5}
+.badge-oferta{top:14px;left:14px;background:#241d1f;padding:7px 11px;letter-spacing:.7px;box-shadow:0 5px 14px rgba(0,0,0,.18)}
+.oferta-card .price strong{font-size:27px}
+.oferta-card .price strong:after{content:'  ✨';font-size:14px}
+
+/* Pequeño refuerzo de confianza */
+.venta-banner{border:1px solid #ead8d0;box-shadow:0 8px 22px rgba(45,30,30,.05)}
+.pago{border:1px solid #eaded9;box-shadow:0 8px 25px rgba(45,30,30,.05)}
+.qr-card{border:1px solid #eaded9;box-shadow:0 10px 28px rgba(45,30,30,.08);transition:.2s}
+.qr-card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(45,30,30,.12)}
+
+/* Carrito más cómodo */
+.caja{box-shadow:0 24px 70px rgba(0,0,0,.25)}
+.item{gap:12px;align-items:center}
+.acciones{flex-shrink:0}
+.acciones button{width:34px;height:34px;min-width:34px;border-radius:9px;font-size:16px}
+.wa{border-radius:10px;box-shadow:0 8px 18px rgba(37,211,102,.18);cursor:pointer}
+
+@media(max-width:800px){
+  section#productos{padding:54px 5%}
+  .card img{height:230px}
+  .card .body{min-height:200px;padding:15px}
+  .card h3{font-size:16px}
+  .price strong{font-size:22px}
+}
+@media(max-width:500px){
+  section#productos{padding:48px 14px}
+  .card img{height:245px}
+  .card .body{min-height:0}
+  .tools{margin-bottom:22px}
+  .oferta{margin-left:10px;margin-right:10px;padding:28px 16px}
+  .oferta h2{font-size:28px}
+  .oferta-card .price strong{font-size:24px}
+}
