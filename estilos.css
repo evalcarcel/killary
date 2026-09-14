@@ -46,3 +46,125 @@ button:hover,.btn:hover{transform:translateY(-1px)}
 
 /* Ofertas V13 */
 .ofertas-grid{margin-top:24px}.oferta-card{position:relative}.badge-oferta{position:absolute;top:12px;left:12px;background:#111;color:#fff;padding:6px 10px;border-radius:20px;font-size:12px;font-weight:700;z-index:2}.price del{opacity:.6;margin-right:7px}.price strong{font-size:1.15em}.check-oferta{display:flex;align-items:center;gap:8px;font-weight:600}.check-oferta input{width:auto}
+
+/* KILLARY V16 — diseño premium y móvil */
+:root{
+  --k-ink:#241d1f;
+  --k-soft:#f8f3f0;
+  --k-rose:#ead7d1;
+  --k-gold:#b58a55;
+  --k-white:#fff;
+  --k-shadow:0 12px 35px rgba(45,30,30,.10);
+  --k-shadow-hover:0 18px 42px rgba(45,30,30,.16);
+}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(180deg,#fcfaf9 0%,#f8f3f0 100%);color:var(--k-ink)}
+header{height:76px;padding:0 6%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);box-shadow:0 4px 22px rgba(35,25,25,.08)}
+.logo{font-size:27px;letter-spacing:.3px;color:var(--k-ink)}
+.logo small{color:#9b7b68;font-size:9px;letter-spacing:2.5px;margin-top:2px}
+nav{gap:10px}
+nav a{padding:10px 12px;border-radius:20px;transition:.2s}
+nav a:hover{background:var(--k-soft)}
+nav button{padding:12px 18px;box-shadow:0 7px 18px rgba(36,29,31,.16);cursor:pointer}
+.hero{min-height:480px;padding:76px 8%;background:radial-gradient(circle at 80% 35%,#fff 0,#f6eae5 28%,#eee1db 67%,#e7d9d2 100%);position:relative;overflow:hidden}
+.hero:after{content:'✦';position:absolute;right:8%;top:13%;font-size:130px;color:rgba(181,138,85,.12);line-height:1;transform:rotate(12deg)}
+.hero p{color:#8c6b59;font-size:12px;letter-spacing:4px}
+.hero h1{font-size:clamp(42px,7vw,72px);letter-spacing:-2px;max-width:760px}
+.hero span{display:block;max-width:620px;color:#62575a;line-height:1.6}
+.btn{margin-top:28px;padding:15px 28px;box-shadow:0 10px 24px rgba(36,29,31,.18);transition:.2s}
+.btn:hover{box-shadow:0 14px 30px rgba(36,29,31,.22)}
+.categorias,#productos{padding:64px 6%}
+h2{font-size:clamp(28px,4vw,38px);letter-spacing:-.5px;margin:0 0 28px}
+.cats{gap:12px}
+.cats a{padding:13px 20px;border:1px solid #eee3de;box-shadow:0 6px 18px rgba(45,30,30,.06);transition:.2s}
+.cats a:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(45,30,30,.11);border-color:#ddc7bd}
+.tools{max-width:1050px;margin:0 auto 34px;align-items:center}
+.tools input,.tools select,.caja input,.caja select{min-height:46px;border:1px solid #e3d8d3;box-shadow:inset 0 1px 2px rgba(0,0,0,.02);outline:none;transition:.2s}
+.tools input:focus,.tools select:focus,.caja input:focus,.caja select:focus{border-color:#b58a55;box-shadow:0 0 0 3px rgba(181,138,85,.12)}
+.grid{gap:22px;max-width:1200px;margin:0 auto}
+.card{border:1px solid #eee5e1;border-radius:18px;box-shadow:var(--k-shadow);transition:transform .22s ease,box-shadow .22s ease;position:relative}
+.card:hover{transform:translateY(-6px);box-shadow:var(--k-shadow-hover)}
+.card img{height:280px;background:#f4efec;transition:transform .35s ease}
+.card:hover img{transform:scale(1.025)}
+.body{padding:19px}
+.body h3{font-size:18px;line-height:1.25}
+.desc{height:auto;min-height:38px;line-height:1.45}
+.price{margin:16px 0;font-size:22px}
+.price strong{color:#2b2224}
+.add{min-height:46px;border-radius:11px;font-size:15px;cursor:pointer;box-shadow:0 7px 16px rgba(36,29,31,.12);transition:.2s}
+.add:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(36,29,31,.18)}
+.oferta,.pago{margin:16px auto 56px;max-width:1200px;padding:44px 6%;border:1px solid #eadbd4;box-shadow:var(--k-shadow)}
+.oferta{background:linear-gradient(135deg,#f1e1da,#f9f2ef)}
+.pago{background:#f4efeb}
+.ofertas-grid{max-width:1200px;margin:26px auto 0}
+.oferta-card{border:1px solid #e7d7d0}
+.badge-oferta{background:linear-gradient(135deg,#241d1f,#4a3a38);box-shadow:0 5px 12px rgba(0,0,0,.15);letter-spacing:.3px}
+.venta-banner{max-width:1100px;margin:22px auto;padding:19px 24px;border:1px solid #eadbd4;background:linear-gradient(90deg,#f4e6df,#fbf7f5,#f4e6df);box-shadow:0 8px 22px rgba(45,30,30,.07)}
+.venta-banner strong{font-size:19px}
+.qr-grid{max-width:780px;gap:24px}
+.qr-card{border:1px solid #eee1dc;box-shadow:var(--k-shadow);transition:.2s}
+.qr-card:hover{transform:translateY(-3px);box-shadow:var(--k-shadow-hover)}
+.qr-card img{background:#fff;padding:6px;border:1px solid #eee5e1}
+.modal{background:rgba(24,18,19,.68);backdrop-filter:blur(4px)}
+.caja{border:1px solid #eee3de;box-shadow:0 25px 70px rgba(0,0,0,.24);max-height:92vh;overflow:auto}
+.x{cursor:pointer;color:#6b5d5f}
+.item{gap:14px;align-items:center}
+.acciones button{min-width:34px;height:34px;border-radius:9px;cursor:pointer}
+.acciones button:hover{transform:scale(1.05)}
+.wa{min-height:48px;border-radius:11px;box-shadow:0 8px 18px rgba(37,211,102,.20);cursor:pointer;transition:.2s}
+.wa:hover{transform:translateY(-2px)}
+.admin{background:linear-gradient(180deg,#f5efeb,#efe6e1)}
+.login-card{box-shadow:var(--k-shadow);border:1px solid #eee1dc}
+.admin-item{box-shadow:0 5px 16px rgba(45,30,30,.07);border:1px solid #eee5e1}
+footer{padding:42px 6%;background:linear-gradient(135deg,#241d1f,#332a2b);margin-top:30px}
+footer h3{margin-top:0;font-size:21px}
+.seguridad-nota{color:#756b6d}
+
+@media(max-width:760px){
+  header{height:64px;padding:8px 12px}
+  .logo{font-size:21px;line-height:1.05}
+  .logo small{font-size:7px;letter-spacing:1.8px}
+  .menu-toggle{padding:8px 10px;border-radius:9px;box-shadow:0 5px 12px rgba(36,29,31,.14)}
+  header nav{top:60px;left:8px;right:8px;border:1px solid #eee3de;padding:10px;box-shadow:0 16px 35px rgba(0,0,0,.14)}
+  header nav a{width:100%;text-align:center}
+  header nav button{width:100%}
+  .hero{min-height:430px;padding:48px 18px 55px}
+  .hero:after{right:-20px;top:15%;font-size:90px}
+  .hero h1{font-size:40px;letter-spacing:-1.3px;margin:13px 0}
+  .hero span{font-size:15px;max-width:90%}
+  .btn{width:100%;text-align:center;margin-top:23px}
+  .categorias,#productos{padding:45px 14px}
+  h2{margin-bottom:22px}
+  .cats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .cats a{text-align:center;padding:12px 8px;font-size:14px}
+  .tools{gap:9px;margin-bottom:22px}
+  .grid{gap:12px!important}
+  .card{border-radius:14px}
+  .card img{height:190px}
+  .body{padding:13px}
+  .body h3{font-size:16px}
+  .desc{font-size:13px;min-height:36px}
+  .price{font-size:18px;margin:12px 0}
+  .add{min-height:44px;padding:10px 8px;font-size:14px}
+  .oferta,.pago{margin:10px 10px 38px;padding:30px 14px;border-radius:16px}
+  .ofertas-grid{gap:12px!important}
+  .venta-banner{margin:12px 10px;padding:15px 12px}
+  .venta-banner strong{font-size:16px}
+  .venta-banner span{font-size:13px;line-height:1.4}
+  .qr-card{padding:17px}
+  .qr-card img{width:220px}
+  .caja{padding:22px 16px;border-radius:16px}
+  .item{align-items:flex-start}
+  .item strong{font-size:14px}
+  .acciones{flex-shrink:0}
+  .acciones button{min-width:36px;height:36px}
+  .wa{min-height:50px}
+}
+@media(max-width:480px){
+  .grid,.ofertas-grid{grid-template-columns:1fr!important}
+  .card img{height:250px}
+  .cats{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:37px}
+  .hero:after{display:none}
+  .qr-card img{width:240px}
+}

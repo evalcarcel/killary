@@ -1,0 +1,15 @@
+KILLARY Perfumes & Más — V16
+
+Esta versión mejora únicamente el diseño visual y móvil.
+
+IMPORTANTE:
+- Reemplazar SOLO el archivo estilos.css del repositorio GitHub.
+- NO reemplazar index.html ni script.js.
+- Así se conservan los QR de Yape que ya corregiste, Supabase, ofertas, carrito y WhatsApp.
+
+Pasos:
+1. En GitHub abre evalcarcel/killary.
+2. Entra a estilos.css.
+3. Pulsa el lápiz o elimina el archivo y sube el nuevo estilos.css.
+4. Guarda el cambio en la rama main.
+5. Espera 1–2 minutos y recarga la tienda con Ctrl+F5.
