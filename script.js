@@ -298,7 +298,7 @@ function prepararWhatsAppAtencion() {
   const btn = document.createElement('a');
   btn.id = 'waAtencion';
   btn.className = 'wa-atencion';
-  btn.href = 'https://wa.me/519356752403?text=' + encodeURIComponent('Hola KILLARY 👋, tengo una consulta sobre sus productos.');
+  btn.href = 'https://wa.me/51935752403?text=' + encodeURIComponent('Hola KILLARY 👋, tengo una consulta sobre sus productos.');
   btn.target = '_blank';
   btn.rel = 'noopener noreferrer';
   btn.setAttribute('aria-label', 'Conversar con KILLARY por WhatsApp');
