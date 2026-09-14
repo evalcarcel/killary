@@ -4,6 +4,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLI
 
 let productos = [];
 let carrito = [];
+let categorias = [];
 
 
 const $ = id => document.getElementById(id);
@@ -104,12 +105,14 @@ function escapeHtml(value) {
 }
 
 function filtrar() {
-  const q = $('buscar').value.toLowerCase();
-  const c = $('categoria').value;
-  pintar(productos.filter(p =>
-    ((p.nombre || '').toLowerCase().includes(q) || (p.descripcion || '').toLowerCase().includes(q)) &&
-    (!c || p.categoria === c)
-  ));
+  const q = ($('buscar')?.value || '').toLowerCase();
+  const c = $('categoria')?.value || '';
+  let lista = productos.filter(p =>
+    ((p.nombre || '').toLowerCase().includes(q) || (p.descripcion || '').toLowerCase().includes(q))
+  );
+  if (c === '__ofertas__') lista = lista.filter(p => datosOferta(p).enOferta);
+  else if (c) lista = lista.filter(p => String(p.categoria || '').toLowerCase() === c.toLowerCase());
+  pintar(lista);
 }
 
 function agregar(id) {
@@ -202,6 +205,9 @@ async function renderAdmin() {
       <button onclick="eliminarProducto('${p.id}')">🗑️ Eliminar</button>
     </div>`).join('') || '<p>No hay productos registrados.</p>';
 }
+  prepararGestionCategorias();
+  await renderCategoriasAdmin();
+  actualizarSelectCategorias();
 
 async function guardarProducto() {
   const nombre = $('nuevoNombre').value.trim();
@@ -292,6 +298,133 @@ async function comprobarSesion() {
 
 
 
+async function cargarCategorias() {
+  const { data, error } = await supabaseClient.from('categorias').select('*').eq('activo', true).order('orden', { ascending: true }).order('nombre', { ascending: true });
+  if (error) { console.warn('Categorías dinámicas no disponibles:', error.message); return; }
+  categorias = data || [];
+  pintarCategorias();
+  actualizarSelectCategorias();
+}
+
+function pintarCategorias() {
+  const contenedor = document.querySelector('.cats');
+  if (!contenedor) return;
+  contenedor.innerHTML = categorias.map(c => `
+    <a href="#productos" data-cat-nombre="${escapeHtml(c.nombre)}">${escapeHtml(c.icono || '🏷️')} ${escapeHtml(c.nombre)}</a>`).join('') +
+    '<a href="#productos" data-cat-ofertas="1">🎁 Promociones</a>';
+  prepararCategorias();
+}
+
+function actualizarSelectCategorias() {
+  const cliente = $('categoria');
+  if (cliente) {
+    const valor = cliente.value;
+    cliente.innerHTML = '<option value="">Todas las categorías</option>' + categorias.map(c => `<option value="${escapeHtml(c.nombre)}">${escapeHtml(c.nombre)}</option>`).join('') + '<option value="__ofertas__">🎁 Promociones</option>';
+    if ([...cliente.options].some(o => o.value === valor)) cliente.value = valor;
+  }
+  const admin = $('nuevoCategoria');
+  if (admin) {
+    const valor = admin.value;
+    admin.innerHTML = categorias.length ? categorias.map(c => `<option value="${escapeHtml(c.nombre)}">${escapeHtml(c.icono || '🏷️')} ${escapeHtml(c.nombre)}</option>`).join('') : '<option value="">Crea una categoría primero</option>';
+    if ([...admin.options].some(o => o.value === valor)) admin.value = valor;
+  }
+}
+
+function prepararCategorias() {
+  document.querySelectorAll('.cats a').forEach(enlace => {
+    if (enlace.dataset.killaryCategoria === '1') return;
+    enlace.dataset.killaryCategoria = '1';
+    enlace.addEventListener('click', e => {
+      e.preventDefault();
+      const nombre = enlace.dataset.catNombre || '';
+      const esOferta = enlace.dataset.catOfertas === '1';
+      const lista = esOferta ? productos.filter(p => datosOferta(p).enOferta) : productos.filter(p => String(p.categoria || '').toLowerCase() === nombre.toLowerCase());
+      if ($('categoria')) $('categoria').value = esOferta ? '__ofertas__' : nombre;
+      pintar(lista);
+      document.getElementById('productos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+function prepararGestionCategorias() {
+  const admin = $('admin');
+  if (!admin || document.getElementById('gestionCategorias')) return;
+  const box = document.createElement('div');
+  box.id = 'gestionCategorias';
+  box.className = 'gestion-categorias';
+  box.innerHTML = `
+    <div class="gestion-cat-head"><div><h3>📂 Gestión de categorías</h3><p>Agrega y administra las categorías de KILLARY.</p></div></div>
+    <div class="gestion-cat-form">
+      <input id="nuevaCategoriaNombre" placeholder="Nombre de categoría">
+      <input id="nuevaCategoriaIcono" placeholder="Ícono (ej. 🌸)" maxlength="4" value="🏷️">
+      <input id="nuevaCategoriaOrden" type="number" min="0" step="1" placeholder="Orden" value="10">
+      <button onclick="agregarCategoria()">➕ Agregar categoría</button>
+    </div>
+    <div id="listaCategoriasAdmin"></div>`;
+  const lista = $('adminLista');
+  if (lista) admin.insertBefore(box, lista); else admin.appendChild(box);
+}
+
+async function renderCategoriasAdmin() {
+  const contenedor = $('listaCategoriasAdmin');
+  if (!contenedor) return;
+  const { data, error } = await supabaseClient.from('categorias').select('*').order('orden', { ascending: true }).order('nombre', { ascending: true });
+  if (error) { contenedor.innerHTML = '<p class="error">No se pudieron cargar las categorías.</p>'; return; }
+  categorias = (data || []).filter(c => c.activo);
+  contenedor.innerHTML = (data || []).map(c => `
+    <div class="categoria-admin-item ${c.activo ? '' : 'inactiva'}">
+      <span class="categoria-admin-icon">${escapeHtml(c.icono || '🏷️')}</span>
+      <div class="categoria-admin-info"><b>${escapeHtml(c.nombre)}</b><small>Orden ${Number(c.orden || 0)} · ${c.activo ? 'Activa' : 'Inactiva'}</small></div>
+      <button onclick="editarCategoria('${c.id}')">✏️</button>
+      <button onclick="alternarCategoria('${c.id}', ${c.activo ? 'false' : 'true'})">${c.activo ? '⏸️' : '▶️'}</button>
+      <button onclick="eliminarCategoria('${c.id}')">🗑️</button>
+    </div>`).join('') || '<p>No hay categorías.</p>';
+  pintarCategorias();
+  actualizarSelectCategorias();
+}
+
+async function agregarCategoria() {
+  const nombre = $('nuevaCategoriaNombre')?.value.trim();
+  const icono = $('nuevaCategoriaIcono')?.value.trim() || '🏷️';
+  const orden = parseInt($('nuevaCategoriaOrden')?.value || '10', 10);
+  if (!nombre) return alert('Escribe el nombre de la categoría.');
+  const { error } = await supabaseClient.from('categorias').insert({ nombre, icono, orden: Number.isNaN(orden) ? 10 : orden, activo: true });
+  if (error) return alert(error.code === '23505' ? 'Esa categoría ya existe.' : 'No se pudo agregar la categoría. Verifica tus permisos.');
+  $('nuevaCategoriaNombre').value = ''; $('nuevaCategoriaIcono').value = '🏷️';
+  await renderCategoriasAdmin();
+  alert('Categoría agregada correctamente.');
+}
+
+async function editarCategoria(id) {
+  const { data: c, error } = await supabaseClient.from('categorias').select('*').eq('id', id).single();
+  if (error || !c) return alert('No se encontró la categoría.');
+  const nombre = prompt('Nombre de la categoría:', c.nombre); if (nombre === null) return;
+  const icono = prompt('Ícono:', c.icono || '🏷️'); if (icono === null) return;
+  const ordenTexto = prompt('Orden:', c.orden ?? 10); if (ordenTexto === null) return;
+  const orden = parseInt(ordenTexto, 10);
+  const { error: updateError } = await supabaseClient.from('categorias').update({ nombre: nombre.trim(), icono: icono.trim() || '🏷️', orden: Number.isNaN(orden) ? 10 : orden }).eq('id', id);
+  if (updateError) return alert(updateError.code === '23505' ? 'Ya existe una categoría con ese nombre.' : 'No se pudo actualizar la categoría.');
+  await renderCategoriasAdmin();
+}
+
+async function alternarCategoria(id, activo) {
+  const { error } = await supabaseClient.from('categorias').update({ activo }).eq('id', id);
+  if (error) return alert('No se pudo cambiar el estado de la categoría.');
+  await renderCategoriasAdmin();
+}
+
+async function eliminarCategoria(id) {
+  const { data: c, error } = await supabaseClient.from('categorias').select('nombre').eq('id', id).single();
+  if (error || !c) return alert('No se encontró la categoría.');
+  const { count, error: countError } = await supabaseClient.from('productos').select('id', { count: 'exact', head: true }).eq('categoria', c.nombre);
+  if (countError) return alert('No se pudo comprobar si la categoría tiene productos.');
+  if (count > 0) return alert(`No se puede eliminar “${c.nombre}” porque tiene ${count} producto(s). Puedes desactivarla con ⏸️.`);
+  if (!confirm(`¿Eliminar la categoría “${c.nombre}”?`)) return;
+  const { error: deleteError } = await supabaseClient.from('categorias').delete().eq('id', id);
+  if (deleteError) return alert('No se pudo eliminar la categoría.');
+  await renderCategoriasAdmin();
+}
+
 function prepararWhatsAppAtencion() {
   if (document.getElementById('waAtencion')) return;
 
@@ -349,36 +482,7 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 
 prepararMarca();
 prepararCategorias();
+cargarCategorias();
 cargarProductos();
 comprobarSesion();
 prepararWhatsAppAtencion();
-
-// KILLARY V24 — categorías funcionales
-function prepararCategorias() {
-  const categorias = document.querySelectorAll('.cats a');
-  if (!categorias.length) return;
-
-  categorias.forEach(enlace => {
-    if (enlace.dataset.killaryCategoria === '1') return;
-    enlace.dataset.killaryCategoria = '1';
-    enlace.addEventListener('click', e => {
-      e.preventDefault();
-      const texto = (enlace.textContent || '').trim().toLowerCase();
-      let lista = productos;
-
-      if (texto.includes('perfume')) {
-        lista = productos.filter(p => String(p.categoria || '').toLowerCase() === 'perfumes');
-      } else if (texto.includes('belleza')) {
-        lista = productos.filter(p => String(p.categoria || '').toLowerCase() === 'belleza');
-      } else if (texto.includes('cuidado')) {
-        lista = productos.filter(p => String(p.categoria || '').toLowerCase() === 'cuidado personal');
-      } else if (texto.includes('promoc')) {
-        lista = productos.filter(p => datosOferta(p).enOferta);
-      }
-
-      pintar(lista);
-      const productosSection = document.getElementById('productos');
-      if (productosSection) productosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-}

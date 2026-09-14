@@ -1,0 +1,21 @@
+KILLARY V25 — CATEGORÍAS DINÁMICAS
+
+1) SUPABASE
+- Ejecuta UNA SOLA VEZ KILLARY-V25-CATEGORIAS.sql en Supabase > SQL Editor.
+- El SQL crea public.categorias, políticas RLS y las categorías iniciales Perfumes, Belleza y Cuidado personal.
+- Promociones no se guarda como categoría porque es un filtro de ofertas.
+
+2) GITHUB
+- Reemplaza solamente estilos.css y script.js.
+- NO reemplaces index.html completo.
+- Si index.html usa script.js?v=24, cambia solamente 24 por 25 para evitar caché.
+
+3) V25
+- Administrador: agregar, editar, activar/desactivar y eliminar categorías.
+- Las categorías activas aparecen automáticamente en la página.
+- El selector de categoría de productos se actualiza automáticamente.
+- Las categorías filtran los productos.
+- Promociones filtra productos en oferta.
+- Se conserva WhatsApp Selene, carrito, ofertas, Supabase, menú móvil, logo y banner.
+
+IMPORTANTE: si una categoría tiene productos, V25 no permite eliminarla; puedes desactivarla.

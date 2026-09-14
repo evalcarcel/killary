@@ -404,3 +404,29 @@ header{min-height:76px}
   .wa-atencion-text b{font-size:13px}
   .wa-atencion-text small{font-size:10px}
 }
+
+/* KILLARY V25 — gestión dinámica de categorías */
+.gestion-categorias{margin:18px 0 22px;padding:18px;border:1px solid #eadfd9;border-radius:16px;background:#fffaf8;box-shadow:0 8px 22px rgba(36,29,31,.07)}
+.gestion-cat-head h3{margin:0 0 5px;font-size:20px}
+.gestion-cat-head p{margin:0 0 14px;color:#6f6462}
+.gestion-cat-form{display:grid;grid-template-columns:1.4fr .8fr .55fr auto;gap:10px;align-items:center;margin-bottom:14px}
+.gestion-cat-form input{min-height:44px;padding:10px 12px;border:1px solid #e4d8d2;border-radius:10px;background:#fff;font:inherit}
+.gestion-cat-form button{min-height:44px;border:0;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:700}
+.categoria-admin-item{display:grid;grid-template-columns:42px 1fr auto auto auto;gap:8px;align-items:center;padding:10px 0;border-top:1px solid #eee3df}
+.categoria-admin-item.inactiva{opacity:.58}
+.categoria-admin-icon{font-size:24px;text-align:center}
+.categoria-admin-info{display:flex;flex-direction:column;gap:3px}
+.categoria-admin-info small{color:#7b706d}
+.categoria-admin-item button{border:1px solid #e4d8d2;background:#fff;border-radius:9px;padding:8px 10px;cursor:pointer}
+@media(max-width:760px){
+  .gestion-cat-form{grid-template-columns:1fr 1fr}
+  .gestion-cat-form button{grid-column:1/-1;width:100%}
+  .categoria-admin-item{grid-template-columns:36px 1fr auto auto auto}
+  .categoria-admin-item button{padding:8px 7px}
+}
+@media(max-width:480px){
+  .gestion-cat-form{grid-template-columns:1fr}
+  .gestion-cat-form button{grid-column:auto}
+  .categoria-admin-item{grid-template-columns:34px 1fr;}
+  .categoria-admin-item button{width:100%}
+}
