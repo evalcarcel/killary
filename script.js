@@ -348,6 +348,37 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 });
 
 prepararMarca();
+prepararCategorias();
 cargarProductos();
 comprobarSesion();
 prepararWhatsAppAtencion();
+
+// KILLARY V24 — categorías funcionales
+function prepararCategorias() {
+  const categorias = document.querySelectorAll('.cats a');
+  if (!categorias.length) return;
+
+  categorias.forEach(enlace => {
+    if (enlace.dataset.killaryCategoria === '1') return;
+    enlace.dataset.killaryCategoria = '1';
+    enlace.addEventListener('click', e => {
+      e.preventDefault();
+      const texto = (enlace.textContent || '').trim().toLowerCase();
+      let lista = productos;
+
+      if (texto.includes('perfume')) {
+        lista = productos.filter(p => String(p.categoria || '').toLowerCase() === 'perfumes');
+      } else if (texto.includes('belleza')) {
+        lista = productos.filter(p => String(p.categoria || '').toLowerCase() === 'belleza');
+      } else if (texto.includes('cuidado')) {
+        lista = productos.filter(p => String(p.categoria || '').toLowerCase() === 'cuidado personal');
+      } else if (texto.includes('promoc')) {
+        lista = productos.filter(p => datosOferta(p).enOferta);
+      }
+
+      pintar(lista);
+      const productosSection = document.getElementById('productos');
+      if (productosSection) productosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
