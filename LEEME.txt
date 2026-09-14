@@ -26,3 +26,8 @@ Ese usuario debe tener una fila en public.perfiles con id igual al UID de Auth y
 
 GitHub Pages:
 Sube el contenido de este ZIP al repositorio evalcarcel/killary y espera el despliegue de GitHub Pages.
+
+
+V13 - OFERTAS
+Esta versión agrega ofertas dinámicas. Antes de publicar V13, ejecuta SUPABASE-V13-OFERTAS.sql en Supabase SQL Editor.
+Luego sube index.html, script.js, estilos.css y SUPABASE-V13-OFERTAS.sql (este último no es necesario para GitHub, solo sirve como referencia).

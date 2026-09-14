@@ -21,10 +21,20 @@ async function cargarProductos() {
   }
   productos = data || [];
   pintar();
+  pintarOfertas();
 }
 
 function productoImagen(p) {
   return p.imagen_url || 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80';
+}
+
+function precioMostrar(p) {
+  const enOferta = p.en_oferta && p.precio_oferta != null && Number(p.precio_oferta) > 0 && Number(p.precio_oferta) < Number(p.precio);
+  return enOferta ? `<div class="price"><del>S/ ${Number(p.precio).toFixed(2)}</del> <strong>S/ ${Number(p.precio_oferta).toFixed(2)}</strong></div>` : `${precioMostrar(p)}`;
+}
+
+function precioCarrito(p) {
+  return (p.en_oferta && p.precio_oferta != null && Number(p.precio_oferta) > 0 && Number(p.precio_oferta) < Number(p.precio)) ? Number(p.precio_oferta) : Number(p.precio);
 }
 
 function pintar(lista = productos) {
@@ -34,10 +44,25 @@ function pintar(lista = productos) {
       <div class="body">
         <h3>${escapeHtml(p.nombre)}</h3>
         <div class="desc">${escapeHtml(p.descripcion || '')}</div>
-        <div class="price">S/ ${Number(p.precio).toFixed(2)}</div>
+        ${precioMostrar(p)}
         <button class="add" onclick="agregar('${p.id}')">Agregar al carrito</button>
       </div>
     </article>`).join('') : '<p>No hay productos disponibles.</p>';
+}
+
+function pintarOfertas() {
+  const ofertas = productos.filter(p => p.en_oferta && p.precio_oferta != null && Number(p.precio_oferta) > 0 && Number(p.precio_oferta) < Number(p.precio));
+  $('listaOfertas').innerHTML = ofertas.length ? ofertas.map(p => `
+    <article class="card oferta-card">
+      <span class="badge-oferta">OFERTA</span>
+      <img src="${productoImagen(p)}" alt="${escapeHtml(p.nombre)}">
+      <div class="body">
+        <h3>${escapeHtml(p.nombre)}</h3>
+        <div class="desc">${escapeHtml(p.descripcion || '')}</div>
+        ${precioMostrar(p)}
+        <button class="add" onclick="agregar('${p.id}')">Agregar al carrito</button>
+      </div>
+    </article>`).join('') : '<p>Aún no hay ofertas publicadas.</p>';
 }
 
 function escapeHtml(value) {
@@ -66,10 +91,10 @@ function cerrar() { $('modal').style.display = 'none'; }
 function renderCarrito() {
   $('carrito').innerHTML = carrito.length ? carrito.map((p, i) => `
     <div class="item">
-      <div><b>${escapeHtml(p.nombre)}</b><br><small>S/ ${Number(p.precio).toFixed(2)} c/u</small></div>
+      <div><b>${escapeHtml(p.nombre)}</b><br><small>S/ ${precioCarrito(p).toFixed(2)} c/u</small></div>
       <div class="acciones"><button onclick="editarCarrito(${i},-1)">−</button><span>1</span><button onclick="editarCarrito(${i},1)">+</button><button class="eliminar" onclick="eliminarCarrito(${i})">🗑️</button></div>
     </div>`).join('') : '<p>Tu carrito está vacío.</p>';
-  $('total').textContent = carrito.reduce((s,p) => s + Number(p.precio), 0).toFixed(2);
+  $('total').textContent = carrito.reduce((s,p) => s + precioCarrito(p), 0).toFixed(2);
 }
 
 function editarCarrito(i, cambio) {
@@ -86,8 +111,8 @@ function eliminarCarrito(i) {
 
 function whatsapp() {
   if (!carrito.length) return alert('Agrega un producto.');
-  const total = carrito.reduce((s,p) => s + Number(p.precio), 0).toFixed(2);
-  const detalle = carrito.map(p => '- ' + p.nombre + ' S/ ' + Number(p.precio).toFixed(2)).join('\n');
+  const total = carrito.reduce((s,p) => s + precioCarrito(p), 0).toFixed(2);
+  const detalle = carrito.map(p => '- ' + p.nombre + ' S/ ' + precioCarrito(p).toFixed(2)).join('\n');
   const nombre = $('nombre').value || 'Cliente';
   const direccion = $('direccion').value || 'Por confirmar';
   const entrega = $('entrega').value;
@@ -137,7 +162,7 @@ async function renderAdmin() {
   $('adminLista').innerHTML = (data || []).map(p => `
     <div class="admin-item">
       <img src="${productoImagen(p)}" alt="">
-      <div><b>${escapeHtml(p.nombre)}</b><br>S/ ${Number(p.precio).toFixed(2)} · ${escapeHtml(p.categoria)} · ${p.activo ? 'Activo' : 'Oculto'}</div>
+      <div><b>${escapeHtml(p.nombre)}</b><br>S/ ${precioCarrito(p).toFixed(2)}${p.en_oferta ? ' 🔥 OFERTA' : ''} · ${escapeHtml(p.categoria)} · ${p.activo ? 'Activo' : 'Oculto'}</div>
       <button onclick="editarProducto('${p.id}')">✏️ Editar</button>
       <button onclick="eliminarProducto('${p.id}')">🗑️ Eliminar</button>
     </div>`).join('') || '<p>No hay productos registrados.</p>';
@@ -149,14 +174,18 @@ async function guardarProducto() {
   const categoria = $('nuevoCategoria').value;
   const imagen_url = $('nuevoImagen').value.trim();
   const descripcion = $('nuevoDescripcion').value.trim();
+  const en_oferta = $('nuevoEnOferta').checked;
+  const precioOfertaTexto = $('nuevoPrecioOferta').value;
+  const precio_oferta = precioOfertaTexto ? parseFloat(precioOfertaTexto) : null;
 
   if (!nombre || Number.isNaN(precio)) return alert('Ingresa nombre y precio.');
+  if (en_oferta && (precio_oferta == null || Number.isNaN(precio_oferta) || precio_oferta <= 0 || precio_oferta >= precio)) return alert('El precio de oferta debe ser menor que el precio normal.');
 
   const { error } = await supabaseClient.from('productos').insert({
     nombre, categoria, precio, stock: 0,
     descripcion: descripcion || 'Producto KILLARY',
     imagen_url: imagen_url || null,
-    destacado: false, activo: true
+    destacado: false, en_oferta, precio_oferta: en_oferta ? precio_oferta : null, activo: true
   });
 
   if (error) {
@@ -168,6 +197,8 @@ async function guardarProducto() {
   $('nuevoPrecio').value = '';
   $('nuevoImagen').value = '';
   $('nuevoDescripcion').value = '';
+  $('nuevoEnOferta').checked = false;
+  $('nuevoPrecioOferta').value = '';
   await cargarProductos();
   await renderAdmin();
   alert('Producto agregado correctamente en la nube.');
@@ -185,12 +216,19 @@ async function editarProducto(id) {
   if (descripcion === null) return;
   const imagen_url = prompt('URL de imagen:', p.imagen_url || '');
   if (imagen_url === null) return;
+  const enOfertaTexto = prompt('¿Es oferta? (si/no):', p.en_oferta ? 'si' : 'no');
+  if (enOfertaTexto === null) return;
+  const en_oferta = enOfertaTexto.trim().toLowerCase() === 'si' || enOfertaTexto.trim().toLowerCase() === 'sí';
+  const precioOfertaTexto = prompt('Precio de oferta (deja vacío si no aplica):', p.precio_oferta ?? '');
+  if (precioOfertaTexto === null) return;
+  const precio_oferta = precioOfertaTexto.trim() ? parseFloat(precioOfertaTexto) : null;
 
   const precio = parseFloat(precioTexto);
   if (!nombre.trim() || Number.isNaN(precio)) return alert('Datos inválidos.');
+  if (en_oferta && (precio_oferta == null || Number.isNaN(precio_oferta) || precio_oferta <= 0 || precio_oferta >= precio)) return alert('El precio de oferta debe ser menor que el precio normal.');
 
   const { error } = await supabaseClient.from('productos').update({
-    nombre: nombre.trim(), precio, descripcion: descripcion.trim(), imagen_url: imagen_url.trim() || null
+    nombre: nombre.trim(), precio, descripcion: descripcion.trim(), imagen_url: imagen_url.trim() || null, en_oferta, precio_oferta: en_oferta ? precio_oferta : null
   }).eq('id', id);
 
   if (error) return alert('No se pudo actualizar el producto.');

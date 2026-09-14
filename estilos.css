@@ -42,3 +42,7 @@ button:hover,.btn:hover{transform:translateY(-1px)}
 }
 
 .seguridad-nota{display:block;margin-top:10px;opacity:.75;font-size:12px}
+
+
+/* Ofertas V13 */
+.ofertas-grid{margin-top:24px}.oferta-card{position:relative}.badge-oferta{position:absolute;top:12px;left:12px;background:#111;color:#fff;padding:6px 10px;border-radius:20px;font-size:12px;font-weight:700;z-index:2}.price del{opacity:.6;margin-right:7px}.price strong{font-size:1.15em}.check-oferta{display:flex;align-items:center;gap:8px;font-weight:600}.check-oferta input{width:auto}
