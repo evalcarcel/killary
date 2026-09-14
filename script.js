@@ -204,10 +204,11 @@ async function renderAdmin() {
       <button onclick="editarProducto('${p.id}')">✏️ Editar</button>
       <button onclick="eliminarProducto('${p.id}')">🗑️ Eliminar</button>
     </div>`).join('') || '<p>No hay productos registrados.</p>';
-}
+
   prepararGestionCategorias();
   await renderCategoriasAdmin();
   actualizarSelectCategorias();
+}
 
 async function guardarProducto() {
   const nombre = $('nuevoNombre').value.trim();
