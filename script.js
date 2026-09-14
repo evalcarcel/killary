@@ -28,43 +28,62 @@ function productoImagen(p) {
   return p.imagen_url || 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80';
 }
 
+
+function datosOferta(p) {
+  const normal = Number(p.precio);
+  const oferta = Number(p.precio_oferta);
+  const enOferta = Boolean(p.en_oferta) && Number.isFinite(oferta) && oferta > 0 && oferta < normal;
+  const descuento = enOferta && normal > 0 ? Math.round((1 - oferta / normal) * 100) : 0;
+  const ahorro = enOferta ? normal - oferta : 0;
+  return { normal, oferta, enOferta, descuento, ahorro };
+}
+
 function precioMostrar(p) {
-  const enOferta = p.en_oferta && p.precio_oferta != null && Number(p.precio_oferta) > 0 && Number(p.precio_oferta) < Number(p.precio);
-  return enOferta
-    ? `<div class="price"><del>S/ ${Number(p.precio).toFixed(2)}</del> <strong>S/ ${Number(p.precio_oferta).toFixed(2)}</strong></div>`
-    : `<div class="price"><strong>S/ ${Number(p.precio).toFixed(2)}</strong></div>`;
+  const o = datosOferta(p);
+  return o.enOferta
+    ? `<div class="price"><del class="normal-price">S/ ${o.normal.toFixed(2)}</del> <strong class="offer-price">S/ ${o.oferta.toFixed(2)}</strong></div><div class="ahorro">Ahorras S/ ${o.ahorro.toFixed(2)} · ${o.descuento}% menos</div>`
+    : `<div class="price"><strong>S/ ${o.normal.toFixed(2)}</strong></div>`;
 }
 
 function precioCarrito(p) {
-  return (p.en_oferta && p.precio_oferta != null && Number(p.precio_oferta) > 0 && Number(p.precio_oferta) < Number(p.precio)) ? Number(p.precio_oferta) : Number(p.precio);
+  const o = datosOferta(p); return o.enOferta ? o.oferta : o.normal;
 }
 
 function pintar(lista = productos) {
-  $('lista').innerHTML = lista.length ? lista.map(p => `
+  $('lista').innerHTML = lista.length ? lista.map(p => {
+    const o = datosOferta(p);
+    return `
     <article class="card">
+      ${o.enOferta ? `<span class="badge-comercial">🔥 OFERTA -${o.descuento}%</span>` : ''}
+      ${p.destacado ? `<span class="badge-destacado">⭐ DESTACADO</span>` : ''}
       <img src="${productoImagen(p)}" alt="${escapeHtml(p.nombre)}">
       <div class="body">
         <h3>${escapeHtml(p.nombre)}</h3>
         <div class="desc">${escapeHtml(p.descripcion || '')}</div>
         ${precioMostrar(p)}
-        <button class="add" onclick="agregar('${p.id}')">Agregar al carrito</button>
+        <button class="add" onclick="agregar('${p.id}')">🛒 Agregar al carrito</button>
       </div>
-    </article>`).join('') : '<p>No hay productos disponibles.</p>';
+    </article>`;
+  }).join('') : '<p>No hay productos disponibles.</p>';
 }
 
 function pintarOfertas() {
-  const ofertas = productos.filter(p => p.en_oferta && p.precio_oferta != null && Number(p.precio_oferta) > 0 && Number(p.precio_oferta) < Number(p.precio));
-  $('listaOfertas').innerHTML = ofertas.length ? ofertas.map(p => `
+  const ofertas = productos.filter(p => datosOferta(p).enOferta);
+  $('listaOfertas').innerHTML = ofertas.length ? ofertas.map(p => {
+    const o = datosOferta(p);
+    return `
     <article class="card oferta-card">
-      <span class="badge-oferta">OFERTA</span>
+      <span class="badge-oferta">🔥 OFERTA</span>
+      <span class="badge-comercial">-${o.descuento}%</span>
       <img src="${productoImagen(p)}" alt="${escapeHtml(p.nombre)}">
       <div class="body">
         <h3>${escapeHtml(p.nombre)}</h3>
         <div class="desc">${escapeHtml(p.descripcion || '')}</div>
         ${precioMostrar(p)}
-        <button class="add" onclick="agregar('${p.id}')">Agregar al carrito</button>
+        <button class="add" onclick="agregar('${p.id}')">🛒 Aprovechar oferta</button>
       </div>
-    </article>`).join('') : '<p>Aún no hay ofertas publicadas.</p>';
+    </article>`;
+  }).join('') : '<p>Aún no hay ofertas publicadas.</p>';
 }
 
 function escapeHtml(value) {

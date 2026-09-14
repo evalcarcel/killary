@@ -314,3 +314,52 @@ section#productos{max-width:1280px;margin:0 auto;padding-top:72px;padding-bottom
   .oferta h2{font-size:28px}
   .oferta-card .price strong{font-size:24px}
 }
+
+
+/* KILLARY V19 — impulso comercial */
+.card .badge-comercial{
+  position:absolute;
+  top:14px;
+  right:14px;
+  z-index:3;
+  background:#241d1f;
+  color:#fff;
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.5px;
+  box-shadow:0 6px 14px rgba(0,0,0,.18);
+}
+.card .badge-destacado{
+  position:absolute;
+  top:14px;
+  left:14px;
+  z-index:3;
+  background:#fff;
+  color:#241d1f;
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  box-shadow:0 6px 14px rgba(0,0,0,.14);
+}
+.card .ahorro{
+  display:inline-block;
+  margin-top:-8px;
+  margin-bottom:10px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.2px;
+}
+.card .price .normal-price{color:#8b7d78}
+.card .price .offer-price{font-size:27px}
+.oferta-card .badge-comercial{
+  right:14px;
+  background:#fff;
+  color:#241d1f;
+}
+@media(max-width:500px){
+  .card .badge-comercial,.card .badge-destacado{top:10px;font-size:10px;padding:6px 8px}
+  .card .price .offer-price{font-size:25px}
+}
