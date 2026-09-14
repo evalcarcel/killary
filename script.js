@@ -5,7 +5,20 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLI
 let productos = [];
 let carrito = [];
 
+
 const $ = id => document.getElementById(id);
+
+function prepararMarca() {
+  const logo = document.querySelector('header .logo');
+  if (!logo || logo.querySelector('.logo-arte-moda')) return;
+  const img = document.createElement('img');
+  img.className = 'logo-arte-moda';
+  img.src = 'imagenes/logo-killary-arte-moda.png';
+  img.alt = 'Killary Arte & Moda';
+  logo.prepend(img);
+}
+
+
 
 async function cargarProductos() {
   const { data, error } = await supabaseClient
@@ -292,5 +305,6 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
   if (event === 'SIGNED_OUT') $('admin').style.display = 'none';
 });
 
+prepararMarca();
 cargarProductos();
 comprobarSesion();

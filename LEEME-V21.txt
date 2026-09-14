@@ -1,0 +1,16 @@
+KILLARY V21 — BANNER + LOGO
+
+Esta versión corrige el problema del logo: ahora se inserta automáticamente en la cabecera desde script.js.
+También añade un banner visual de varios perfumes en la parte superior mediante estilos.css.
+
+CAMBIOS SEGUROS
+- Reemplazar estilos.css
+- Reemplazar script.js
+- Agregar los archivos de imagen dentro de la carpeta imagenes:
+  - logo-killary-arte-moda.png
+  - banner-perfumes-killary.png
+- NO reemplazar index.html
+- NO reemplazar la carpeta imagenes completa
+- NO modificar QR, Supabase, carrito, ofertas, login ni WhatsApp.
+
+Después de subir script.js, si index.html todavía dice script.js?v=19, cambiar SOLO 19 por 21 para evitar caché.
