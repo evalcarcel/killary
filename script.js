@@ -30,7 +30,9 @@ function productoImagen(p) {
 
 function precioMostrar(p) {
   const enOferta = p.en_oferta && p.precio_oferta != null && Number(p.precio_oferta) > 0 && Number(p.precio_oferta) < Number(p.precio);
-  return enOferta ? `<div class="price"><del>S/ ${Number(p.precio).toFixed(2)}</del> <strong>S/ ${Number(p.precio_oferta).toFixed(2)}</strong></div>` : `${precioMostrar(p)}`;
+  return enOferta
+    ? `<div class="price"><del>S/ ${Number(p.precio).toFixed(2)}</del> <strong>S/ ${Number(p.precio_oferta).toFixed(2)}</strong></div>`
+    : `<div class="price"><strong>S/ ${Number(p.precio).toFixed(2)}</strong></div>`;
 }
 
 function precioCarrito(p) {
