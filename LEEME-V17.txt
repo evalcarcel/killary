@@ -1,0 +1,18 @@
+KILLARY V17 — TIENDA PREMIUM
+
+Esta versión actualiza SOLO estilos visuales mediante estilos.css.
+NO reemplazar index.html ni script.js.
+
+Incluye:
+- Tarjetas de productos más elegantes y consistentes.
+- Botones de compra más visibles.
+- Mejor jerarquía de precios y ofertas.
+- Mejor presentación de secciones y QR.
+- Experiencia móvil más cómoda.
+- Efectos suaves de interacción.
+
+IMPORTANTE:
+Conservar el index.html y script.js actuales del repositorio para proteger
+Supabase, WhatsApp, carrito, login y las asociaciones actuales de Yape.
+
+Después de reemplazar estilos.css en GitHub Pages, usar Ctrl + F5.

@@ -168,3 +168,88 @@ footer h3{margin-top:0;font-size:21px}
   .hero:after{display:none}
   .qr-card img{width:240px}
 }
+
+/* KILLARY V17 — tienda boutique / conversión / móvil */
+:root{
+  --k-line:#eadfda;
+  --k-muted:#75696b;
+  --k-accent:#a87945;
+  --k-accent-soft:#f3e5dc;
+}
+section{scroll-margin-top:82px}
+.hero{isolation:isolate}
+.hero:before{content:'';position:absolute;inset:auto -8% -42% 48%;height:300px;border-radius:50%;background:rgba(255,255,255,.38);filter:blur(2px);z-index:-1}
+.categorias{background:rgba(255,255,255,.58)}
+.cats a{min-width:145px;text-align:center}
+#productos{background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(248,243,240,.72))}
+.tools input::placeholder{color:#9a8d8f}
+.grid{align-items:stretch}
+.card{display:flex;flex-direction:column;height:100%}
+.card .body{display:flex;flex-direction:column;flex:1}
+.card .body .add{margin-top:auto}
+.card img{aspect-ratio:1/1;object-fit:cover}
+.card:focus-within{outline:3px solid rgba(181,138,85,.18);outline-offset:2px}
+.badge-oferta{font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+.oferta-card .body{padding-top:18px}
+.price del{font-size:.72em;color:#8f8180}
+.price strong{font-weight:800}
+.add{letter-spacing:.1px}
+.add:active,.btn:active,.wa:active,nav button:active{transform:scale(.98)}
+.oferta{position:relative;overflow:hidden}
+.oferta:before{content:'🔥';position:absolute;right:25px;top:18px;font-size:28px;opacity:.75}
+.oferta h2{margin-bottom:10px}
+.oferta .nota{max-width:650px;margin:0 auto}
+.pago h2{margin-bottom:10px}
+.qr-card h3{font-size:18px}
+.qr-card p b{font-size:18px;letter-spacing:.5px}
+.caja h2{font-size:26px;text-align:left;padding-right:30px}
+.caja input,.caja select{font-size:15px}
+.item{border-bottom:1px solid var(--k-line)}
+.item:last-of-type{border-bottom:0}
+.acciones button{font-size:16px}
+.acciones .eliminar{color:#8b3f3f}
+footer{border-top:1px solid rgba(255,255,255,.08)}
+
+/* Sensación de tienda en pantallas grandes */
+@media(min-width:1000px){
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+  .card img{height:285px}
+  .hero{padding-left:9%;padding-right:9%}
+  .hero h1{max-width:720px}
+}
+
+/* Móvil: compra rápida y lectura cómoda */
+@media(max-width:760px){
+  body{font-size:14px}
+  header{box-shadow:0 4px 18px rgba(35,25,25,.10)}
+  .hero{border-bottom:1px solid #eee1dc}
+  .hero p{font-size:10px;letter-spacing:2.7px}
+  .categorias{padding-top:38px;padding-bottom:38px}
+  .cats a{min-width:0;min-height:46px;display:flex;align-items:center;justify-content:center}
+  #productos{padding-top:40px}
+  .tools input,.tools select{min-height:48px;font-size:14px}
+  .card{box-shadow:0 8px 22px rgba(45,30,30,.09)}
+  .card img{aspect-ratio:1/1;height:auto}
+  .body h3{min-height:40px;display:flex;align-items:center}
+  .desc{font-size:12px;color:var(--k-muted)}
+  .price{font-size:19px}
+  .add{font-size:13px;min-height:46px}
+  .oferta:before{right:15px;top:12px}
+  .qr-grid{margin-top:18px}
+  .qr-card{box-shadow:0 8px 24px rgba(45,30,30,.09)}
+}
+
+@media(max-width:480px){
+  .hero{min-height:405px;padding-top:42px}
+  .hero h1{font-size:38px}
+  .categorias,#productos{padding-left:12px;padding-right:12px}
+  .cats{gap:8px}
+  .cats a{font-size:13px;padding:11px 6px}
+  .grid{gap:14px!important}
+  .card{border-radius:16px}
+  .body{padding:14px}
+  .body h3{font-size:16px}
+  .price{font-size:20px}
+  .add{min-height:48px}
+  .oferta,.pago{margin-left:8px;margin-right:8px}
+}
